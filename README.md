@@ -12,7 +12,7 @@ targets: hast, libhast.a, libhast.so
 usage
 -----
 
-build a database: ./hast -w <datainput >hast.db
+build a database: ./hast -w &lt;datainput &gt;hast.db
 
 the format of datainput is the same as for a cdb writer:
 
