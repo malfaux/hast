@@ -8,7 +8,7 @@
 extern void hast_feed(void);
 extern int hast_make(void);
 extern void hast_write(void);
-extern void hast_init(char *);
+extern void hast_open(char *);
 extern int hast_find(char *key, int keylen, char **data, int *datalen);
 extern void hast_close(void);
 
@@ -78,7 +78,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "no database\n");
         usage();
     }
-    hast_init(dbfn);
+    hast_open(dbfn);
     while (1) {
         rc = getline(&buf, &buflen, stdin);
         if (rc == -1) {

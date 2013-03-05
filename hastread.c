@@ -43,7 +43,7 @@ struct hastdb hdb;
         )
 //2*sizeof(int) + hdb.count*sizeof(int) + 3 * hdb.count * sizeof(int) + sizeof(int)) 
 
-void hast_init(char *f)
+void hast_open(char *f)
 {
     char dbname[5];
     char *padbytes;
@@ -173,7 +173,7 @@ int main(int argc, char **argv)
     int datalen = 3;
     int rc;
     //int i;
-    hast_init(argv[1]);
+    hast_open(argv[1]);
     while (1) {
         rc = getline(&buf, &buflen, stdin);
         if (rc == -1) {
