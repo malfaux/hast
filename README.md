@@ -30,6 +30,6 @@ API access (link against libhast)
 
 NOTES:
 
-* hast_open considers any error to be fatal. the program will die.
+* if any errors are encountered while trying to open the database (hast_open), the program will die
 * hast_find returns -1 if the key was not found in the database.
 
