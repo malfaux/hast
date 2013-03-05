@@ -72,8 +72,10 @@ static int bucketprint(struct hashbucket *a, int size)
 		poolcounts++;
 	}
     //if (maxpool == 1) maxpool = 0;
+#if 0
 	fprintf(stderr, "%d buckets, %d zero, %d ones, %d pooled, maxpool=%d\n",
 			size, zerocounts, onecounts, poolcounts, maxpool);
+#endif
 	return maxpool;
 }
 
@@ -159,7 +161,9 @@ void hast_write(void)
     headerlen = 4 + 2*sizeof(int) + hashtable.count * sizeof(int) + 3 * sizeof(int) * hashtable.count + sizeof(int);
     //headerlen = 4 + sizeof(int) * (3 + 4*hashtable.count );
     padlen = pagesize - headerlen % pagesize;
+#if 0
     fprintf(stderr, "PADLEN=%d headerlen=%d\n", padlen, headerlen);
+#endif
     padbytes = (char *)malloc(padlen);
     memset(padbytes, 0xff, padlen);
     write(OUTFD, &padlen, sizeof(int));

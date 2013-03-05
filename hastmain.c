@@ -87,7 +87,9 @@ int main(int argc, char **argv)
         }
         buf[rc-1] = '\0';
         hast_find(buf, rc-1, &data, &datalen);
-        printf("hdb[%s] = \"%s\"\n", buf, data);
+        //printf("hdb[%s] = \"%s\"\n", buf, data);
+        write(1, data, datalen);
+        write(1,"\n", 1);
     }
     hast_close();
     return 0;

@@ -60,7 +60,9 @@ void hast_init(char *f)
     if (hdb.version != VERSION(CURRENT_VERSION) ) 
         errx(1,"database version mismatch: db:%u, sw:%u", hdb.version, VERSION(CURRENT_VERSION));
     read(hdb.fd, &(hdb.count), sizeof(int));
+#if 0
     printf("dbtype=%s, version=%u, num_records=%d\n", dbname, hdb.version, hdb.count);
+#endif
     hdb.dist_table = (int *)malloc(sizeof(int) * hdb.count);
     read(hdb.fd, hdb.dist_table, sizeof(int) * hdb.count);
 
@@ -71,17 +73,21 @@ void hast_init(char *f)
     /* also read the pad even if only for brevity */
     padbytes = (char *)malloc(hdb.padlen);
     read(hdb.fd, padbytes, hdb.padlen); 
+#if 0
     printf("PADLEN=%d, headerlen=%lu, nopad_headerlen=%lu\n", hdb.padlen, DATA_OFFSET, DATA_OFFSET - hdb.padlen );
+#endif
     hdb.data = mmap(NULL, hdb.rawlen - DATA_OFFSET, PROT_READ, MAP_PRIVATE, hdb.fd, DATA_OFFSET);
     if (hdb.data == MAP_FAILED) err(1,"mmap failed: ");
+#if 0
     printf("DATA: mapped at %p dbsize=%d, headersize=%lu, datasize=%lu\n",
             hdb.data, hdb.rawlen, DATA_OFFSET, hdb.rawlen - DATA_OFFSET);
+#endif
 }
 
 void hast_close(void)
 {
     if (munmap(hdb.data, hdb.rawlen - DATA_OFFSET) == -1) err(1,"munmap(): ");
-    printf("munmap() OK\n");
+    //printf("munmap() OK\n");
     //free(hdb.data);
     close(hdb.fd);
     free(hdb.dist_table);
@@ -139,9 +145,11 @@ void hast_dump(void)
     int i;
     char *key = NULL;
     char *data = NULL;
+    /*
     for (i = 0; i < hdb.count; i++) {
         //printf("dist_table[%d] = %d\n", i, hdb.dist_table[i]);
     }
+    */
     for (i = 0; i < hdb.count; i++) {
         data = (char *)realloc(data, hdb.offsets[i].datalen + 1);
         memcpy(data, hdb.data + hdb.offsets[i].offset, hdb.offsets[i].datalen);
@@ -174,7 +182,8 @@ int main(int argc, char **argv)
         }
         buf[rc-1] = '\0';
         hast_find(buf, rc-1, &data, &datalen);
-        printf("hdb[%s] = \"%s\"\n", buf, data);
+        //printf("hdb[%s] = \"%s\"\n", buf, data);
+        write(1, data, datalen);
     }
     hast_close();
     exit(0);
