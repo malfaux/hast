@@ -20,7 +20,7 @@ the format of datainput is the same as for a cdb writer:
 
 query a database: echo key | ./hast -q -f ./hast.db
 
-API access (for programs linked against libhast)
+API access (link against libhast)
 ---------------------
 * void hast_init(char *database_file_name);
 * int hast_find(char *key, int keylen, char **data, int *datalen);
