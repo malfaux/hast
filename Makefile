@@ -11,23 +11,21 @@ hastwrite: hastwrite.o hashfuncs.o
 hastread: hastread-prog.o hashfuncs.o
 	$(CC) -o $@ $^
 
-libhastr.a: hastread.o hashfuncs.o
+libhast.a: hastread.o hashfuncs.o hastwrite.o
 	$(AR) rc $@ $^
 
-hast: hastmain.o hastwrite.o hastread.o
+hast: hastmain.o hastwrite.o hastread.o hashfuncs.o
 	$(CC) -o $@ $^
 
-libhastr.so: hastread.o hashfuncs.o
+libhast.so: hastread.o hashfuncs.o hastwrite.o
 	$(CC) -shared -o $@ $^
 
-hastread-prog.o: CFLAGS:=$(CFLAGS) -DHASTREAD_MAIN
-hastread-prog.o: hastread.c
-	$(CC) $(INC) $(CFLAGS) -o $@ -c $<
 
+hastread.o: CFLAGS:=$(CFLAGS) -fPIC
 hastread.o: hastread.c
 	$(CC) $(INC) $(CFLAGS) -fPIC -c $<
 
-hastwrite.o: CFLAGS:=$(CFLAGS) -DHASTPROG
+hastwrite.o: CFLAGS:=$(CFLAGS) -fPIC
 hastwrite.o: hastwrite.c
 	$(CC) $(INC) $(CFLAGS) -c $<
 
@@ -36,9 +34,9 @@ hashfuncs.o: hashfuncs.c
 	$(CC) $(INC)  $(CFLAGS) -c $<
 
 clean:
-	rm -f *.o hastwrite hastread ipsrch
+	rm -f *.o hast libhast.a libhast.so
 
-all: hastread hastwrite ipsrch
+all: hast libhast.a libhast.so
 
 again: clean all
 
