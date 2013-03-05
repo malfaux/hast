@@ -18,10 +18,7 @@ query a database: echo key | ./hast -q -f ./hast.db
 
 API
 ---
-
-void hast_init(char *database_file_name);
-
-int hast_find(char *key, int keylen, char **data, int *datalen);
-
-void hast_close(void);
+* void hast_init(char *database_file_name);
+* int hast_find(char *key, int keylen, char **data, int *datalen);
+* void hast_close(void);
 
