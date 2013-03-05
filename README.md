@@ -28,3 +28,8 @@ API access (link against libhast)
 * int hast_find(char *key, int keylen, char **data, int *datalen);
 * void hast_close(void);
 
+NOTES:
+
+* hast_open considers any error to be fatal. the program will die.
+* hast_find returns -1 if the key was not found in the database.
+
