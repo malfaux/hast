@@ -97,7 +97,7 @@ void hast_close(void)
 
 extern unsigned int hashit(char *, unsigned int, unsigned int);
 
-int hast_find(char *key, int keylen, char **data, int *datalen)
+int hast_read(char *key, int keylen, char **data, int *datalen)
 {
     int slotindex;
     uint32_t hashval;
@@ -181,7 +181,7 @@ int main(int argc, char **argv)
             err(1,"getline(): ");
         }
         buf[rc-1] = '\0';
-        hast_find(buf, rc-1, &data, &datalen);
+        hast_read(buf, rc-1, &data, &datalen);
         //printf("hdb[%s] = \"%s\"\n", buf, data);
         write(1, data, datalen);
     }

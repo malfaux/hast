@@ -9,7 +9,7 @@ extern void hast_feed(void);
 extern int hast_make(void);
 extern void hast_write(void);
 extern void hast_open(char *);
-extern int hast_find(char *key, int keylen, char **data, int *datalen);
+extern int hast_read(char *key, int keylen, char **data, int *datalen);
 extern void hast_close(void);
 
 
@@ -86,7 +86,7 @@ int main(int argc, char **argv)
             err(1,"getline(): ");
         }
         buf[rc-1] = '\0';
-        hast_find(buf, rc-1, &data, &datalen);
+        hast_read(buf, rc-1, &data, &datalen);
         //printf("hdb[%s] = \"%s\"\n", buf, data);
         write(1, data, datalen);
         write(1,"\n", 1);
