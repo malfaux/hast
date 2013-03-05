@@ -14,7 +14,7 @@ usage
 
 build a database: 
 
-**./hast -w &lt;datainput &gt;hast.db**
+**./hast -w >hast.db <datainput**
 
 the format of datainput is the same as for a cdb writer:
 
