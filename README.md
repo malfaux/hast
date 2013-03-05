@@ -14,6 +14,10 @@ usage
 
 build a database: ./hast -w <datainput >hast.db
 
+the format of datainput is the same as for a cdb writer:
+
+*+keylen,datalen:key->data\\n*
+
 query a database: echo key | ./hast -q -f ./hast.db
 
 API access (for programs linked against libhast)
